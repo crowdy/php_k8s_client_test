@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pi
+  labels:
+    tier: compute
+  annotations:
+    perl/annotation: "yes"
+spec:
+  ttlSecondsAfterFinished: 3600
+  template:
+    metadata:
+      name: perl
+    spec:
+      containers:
+        - name: pi
+          image: public.ecr.aws/docker/library/perl:latest
+          command:
+            - perl
+            - Mbignum=bpi
+            - -wle
+            - print bpi(200)
